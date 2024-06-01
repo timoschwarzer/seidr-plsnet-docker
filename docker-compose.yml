@@ -1,0 +1,30 @@
+services:
+  plsnet1:
+    build:
+      dockerfile: Dockerfile
+    restart: on-failure
+    volumes:
+      - ./launcher.sh:/app/launcher.sh:ro
+      - ./input:/app/input:ro
+      - ./output:/app/output
+    command:
+      - 'net7_seidr.tsv'
+      - 'net7_seidr_gene_id.csv'
+      - 'net7_output'
+      # - '8'
+      # ↑ optionally define the number of threads, in case you run multiple instances at once
+
+
+  ### Multiple instances are supported:
+
+  # plsnet2:
+  #   build:
+  #     dockerfile: Dockerfile
+  #   restart: on-failure
+  #   volumes_from:
+  #     - plsnet1
+  #   command:
+  #     - 'net5_seidr.tsv'
+  #     - 'net5_seidr_gene_id.csv'
+  #     - 'net5_output'
+  #     - '8'
